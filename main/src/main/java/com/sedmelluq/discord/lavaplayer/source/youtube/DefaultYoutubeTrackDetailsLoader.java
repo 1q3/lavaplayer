@@ -208,22 +208,7 @@ public class DefaultYoutubeTrackDetailsLoader implements YoutubeTrackDetailsLoad
         HttpPost post = new HttpPost(PLAYER_URL);
         YoutubeClientConfig clientConfig;
 
-        if (infoStatus == InfoStatus.PREMIERE_TRAILER) {
-            // Android client gives encoded Base64 response to trailer which is also protobuf so we can't decode it
-            clientConfig = YoutubeClientConfig.WEB.copy();
-        } else if (infoStatus == InfoStatus.NON_EMBEDDABLE) {
-            // Used when age restriction bypass failed, if we have valid auth then most likely this request will be successful
-            clientConfig = YoutubeClientConfig.ANDROID.copy()
-                .withRootField("params", PLAYER_PARAMS);
-        } else if (infoStatus == InfoStatus.REQUIRES_LOGIN) {
-            // Age restriction bypass
-            clientConfig = YoutubeClientConfig.TV_EMBEDDED.copy();
-        } else {
-            // Default payload from what we start trying to get required data
-            clientConfig = YoutubeClientConfig.ANDROID.copy()
-                .withClientField("clientScreen", CLIENT_SCREEN_EMBED)
-                .withThirdPartyEmbedUrl(CLIENT_THIRD_PARTY_EMBED)
-                .withRootField("params", PLAYER_PARAMS);
+        clientConfig = YoutubeClientConfig.TV_EMBEDDED.copy();
         }
 
         clientConfig
