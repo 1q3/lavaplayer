@@ -206,10 +206,7 @@ public class DefaultYoutubeTrackDetailsLoader implements YoutubeTrackDetailsLoad
             cachedPlayerScript.playerScriptUrl
         );
         HttpPost post = new HttpPost(PLAYER_URL);
-        YoutubeClientConfig clientConfig;
-
-        clientConfig = YoutubeClientConfig.TV_EMBEDDED.copy();
-        }
+        YoutubeClientConfig clientConfig = YoutubeClientConfig.TV_EMBEDDED.copy();
 
         clientConfig
             .withRootField("racyCheckOk", true)
