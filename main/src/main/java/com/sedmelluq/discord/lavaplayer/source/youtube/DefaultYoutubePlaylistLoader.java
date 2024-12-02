@@ -36,9 +36,7 @@ public class DefaultYoutubePlaylistLoader implements YoutubePlaylistLoader {
     public AudioPlaylist load(HttpInterface httpInterface, String playlistId, String selectedVideoId,
                               Function<AudioTrackInfo, AudioTrack> trackFactory) {
         HttpPost post = new HttpPost(BROWSE_URL);
-        YoutubeClientConfig clientConfig = YoutubeClientConfig.ANDROID.copy()
-            .withRootField("browseId", "VL" + playlistId)
-            .setAttribute(httpInterface);
+        YoutubeClientConfig clientConfig = YoutubeClientConfig.WEB.copy();
         StringEntity payload = new StringEntity(clientConfig.toJsonString(), "UTF-8");
         post.setEntity(payload);
         try (CloseableHttpResponse response = httpInterface.execute(post)) {
